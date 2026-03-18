@@ -1,0 +1,22 @@
+name: Ejecutar Predictor de Apuestas
+
+on:
+  push:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 */6 * * *' # Se ejecuta cada 6 horas automáticamente
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Ejecutar Algoritmo
+        run: python main.py

@@ -1,23 +1,23 @@
-def calcular_arbitraje(cuota_casa1, cuota_casa2):
+def calcular_arbitraje(cuota_a, cuota_b):
     """
-    Verifica la condición: (B - 1) * (A - 1) > 1
-    donde B y A son las cuotas de cada casa.
+    Verifica la condición matemática: (a - 1) * (b - 1) > 1
     """
-    condicion = (cuota_casa1 - 1) * (cuota_casa2 - 1)
-    es_segura = condicion > 1
-    return es_segura, condicion
+    if cuota_a <= 1 or cuota_b <= 1:
+        return False, 0
+    
+    factor = (cuota_a - 1) * (cuota_b - 1)
+    es_segura = factor > 1
+    return es_segura, factor
 
-def calcular_apuesta_ideal(total_a_invertir, cuota_casa1, cuota_casa2):
+def calcular_apuesta_ideal(total_inversion, cuota_a, cuota_b):
     """
-    Calcula cuánto dinero poner en cada casa para 
-    maximizar ganancias según la imagen.
+    Calcula la distribución de capital para asegurar el mismo retorno.
     """
-    # Proporción basada en el inverso de las cuotas
-    inv_c1 = 1 / cuota_casa1
-    inv_c2 = 1 / cuota_casa2
-    prob_total = inv_c1 + inv_c2
+    inv_a = 1 / cuota_a
+    inv_b = 1 / cuota_b
+    prob_total = inv_a + inv_b
     
-    apuesta_c1 = (inv_c1 / prob_total) * total_a_invertir
-    apuesta_c2 = (inv_c2 / prob_total) * total_a_invertir
+    apuesta_a = (inv_a / prob_total) * total_inversion
+    apuesta_b = (inv_b / prob_total) * total_inversion
     
-    return round(apuesta_c1, 2), round(apuesta_c2, 2)
+    return round(apuesta_a, 2), round(apuesta_b, 2)

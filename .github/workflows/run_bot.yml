@@ -4,19 +4,25 @@ on:
   push:
     branches: [ "main" ]
   schedule:
-    - cron: '0 */6 * * *' # Se ejecuta cada 6 horas automáticamente
+    - cron: '0 */12 * * *' # Se ejecuta automáticamente cada 12 horas
+  workflow_dispatch: # Permite ejecutarlo manualmente con un botón
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Descargar código
+      - name: Descargar repositorio
         uses: actions/checkout@v3
 
-      - name: Configurar Python
+      - name: Instalar Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Ejecutar Algoritmo
+      - name: Instalar librerías
+        run: pip install requests
+
+      - name: Correr Predictor
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python main.py
